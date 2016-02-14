@@ -99,6 +99,15 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         ofxDatGuiToggle(string label, bool enabled) : ofxDatGuiButton(label)
         {
             mEnabled = enabled;
+            if (mBoundBool != nullptr) mBoundBool->set(mEnabled);
+            mType = ofxDatGuiType::TOGGLE;
+            setTheme(ofxDatGuiComponent::theme.get());
+        }
+    
+        ofxDatGuiToggle(ofParameter<bool> &p) : ofxDatGuiButton(p.getName())
+        {
+            mEnabled = p.get();
+            mBoundBool = &p;
             mType = ofxDatGuiType::TOGGLE;
             setTheme(ofxDatGuiComponent::theme.get());
         }
@@ -123,11 +132,15 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         void toggle()
         {
             mEnabled = !mEnabled;
+            if (mBoundBool != nullptr) {
+                mBoundBool->set(mEnabled);
+            }
         }
     
         void setEnabled(bool enable)
         {
             mEnabled = enable;
+            if (mBoundBool != nullptr) mBoundBool->set(mEnabled);
         }
     
         bool getEnabled()
@@ -150,6 +163,13 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
             }
         }
     
+    
+        //borg added
+        inline void bind(ofParameter<bool> &val)
+        {
+            mBoundBool = &val;
+        }
+    
     protected:
     
         void onMouseRelease(ofPoint m)
@@ -166,11 +186,15 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
             }
         }
     
+        
+    
     private:
         bool mEnabled;
         ofImage radioOn;
         ofImage radioOff;
-
+    
+        //tmp fix
+        ofParameter<bool> *mBoundBool = nullptr;;
 };
 
 
