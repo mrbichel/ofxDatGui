@@ -86,7 +86,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
                 ofxDatGuiButtonEvent e(this);
                 buttonEventCallback(e);
             }   else{
-                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
     
@@ -99,7 +99,6 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         ofxDatGuiToggle(string label, bool enabled) : ofxDatGuiButton(label)
         {
             mEnabled = enabled;
-            if (mBoundBool != nullptr) mBoundBool->set(mEnabled);
             mType = ofxDatGuiType::TOGGLE;
             setTheme(ofxDatGuiComponent::theme.get());
         }
@@ -108,6 +107,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         {
             mEnabled = p.get();
             mBoundBool = &p;
+            mBoundBool->addListener(this, &ofxDatGuiToggle::onParam);
             mType = ofxDatGuiType::TOGGLE;
             setTheme(ofxDatGuiComponent::theme.get());
         }
@@ -131,10 +131,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
     
         void toggle()
         {
-            mEnabled = !mEnabled;
-            if (mBoundBool != nullptr) {
-                mBoundBool->set(mEnabled);
-            }
+            setEnabled(!mEnabled);
         }
     
         void setEnabled(bool enable)
@@ -168,13 +165,14 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         inline void bind(ofParameter<bool> &val)
         {
             mBoundBool = &val;
+            mBoundBool->addListener(this, &ofxDatGuiToggle::onParam);
         }
     
     protected:
     
         void onMouseRelease(ofPoint m)
         {
-            mEnabled = !mEnabled;
+            setEnabled(!mEnabled);
             ofxDatGuiComponent::onFocusLost();
             ofxDatGuiComponent::onMouseRelease(m);
         // dispatch event out to main application //
@@ -182,7 +180,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
                 ofxDatGuiButtonEvent e(this, mEnabled);
                 buttonEventCallback(e);
             }   else{
-                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
     
@@ -194,7 +192,10 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         ofImage radioOff;
     
         //tmp fix
-        ofParameter<bool> *mBoundBool = nullptr;;
+        ofParameter<bool> *mBoundBool = nullptr;
+        void onParam(bool& n) {
+            mEnabled = n;
+        }
 };
 
 
