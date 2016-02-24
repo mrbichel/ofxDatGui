@@ -50,7 +50,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         }
         ofxDatGuiSlider(ofParameter<float> & p) : ofxDatGuiSlider(p.getName(), p.getMin(), p.getMax(), p.get()) {
             mParamF = &p;
-            mPrecision = 2;
+            mPrecision = 4;
             calculateScale();
             mParamF->addListener(this, &ofxDatGuiSlider::onParamF);
         }
