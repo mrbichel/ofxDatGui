@@ -321,7 +321,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }   else{
                 mScale = ofxDatGuiScale(mVal, mMin, mMax);
             }
-            mVal = round(mVal, mPrecision);
+            //mVal = round(mVal, mPrecision);
             if (mParamI != nullptr){
                 mParamI->set(mVal);
             }   else if (mParamF != nullptr){
@@ -332,7 +332,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         void setTextInput()
         {
-            string v = ofToString(mVal);
+            string v = ofToString(round(mVal, mPrecision));
             if (mVal != mMin && mVal != mMax){
                 int p = v.find('.');
                 if (p == -1 && mPrecision != 0){
