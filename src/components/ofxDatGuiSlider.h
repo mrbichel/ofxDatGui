@@ -33,7 +33,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mMin = min;
             mMax = max;
             mVal = val;
-            mPrecision = 2;
+            mPrecision = 4;
             mType = ofxDatGuiType::SLIDER;
             input = new ofxDatGuiTextInputField();
             input->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
