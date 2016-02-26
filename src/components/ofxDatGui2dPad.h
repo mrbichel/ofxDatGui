@@ -75,6 +75,29 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             }
         }
     
+        void setValue(float x, float y) {
+            
+            
+            /*mx = (m.x-mPad.x)/mPad.width;
+            my = (m.y-mPad.y)/mPad.height;
+            pWorld.x = mBounds.x + (mBounds.width*mx);
+            pWorld.y = mBounds.y + (mBounds.height*my);
+*/
+            
+            //TODO fix this
+            
+            pWorld.x = x;
+            pWorld.y = y;
+            //mx = mBounds.x + (mBounds.width/pWorld.x);
+            //my = mBounds.y + (mBounds.height/pWorld.y);
+            
+        }
+    
+        ofPoint getValue()
+        {
+            return pWorld;
+        }
+    
         ofPoint getPosition()
         {
             return pWorld;
