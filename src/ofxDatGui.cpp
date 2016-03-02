@@ -447,6 +447,7 @@ ofxDatGui2dPad* ofxDatGui::get2dPad(string pl, string fl)
     }   else{
         o = static_cast<ofxDatGui2dPad*>(getComponent(ofxDatGuiType::PAD2D, pl));
     }
+    
     if (o==nullptr){
         o = ofxDatGui2dPad::getInstance();
         ofxDatGuiLog::write(ofxDatGuiMsg::COMPONENT_NOT_FOUND, fl!="" ? fl+"-"+pl : pl);
@@ -692,13 +693,10 @@ void ofxDatGui::anchorGui()
     mPosition.y = 0;
     if (mAnchor == ofxDatGuiAnchor::TOP_LEFT){
         mPosition.x = 0;
-    /*
-        ofGetWidth returns an incorrect value after the window is resized in version >=0.9.1
-        disabling ofxDatGuiAnchor::TOP_RIGHT until this is resolved
-        https://github.com/openframeworks/openFrameworks/issues/4746
+
     }   else if (mAnchor == ofxDatGuiAnchor::TOP_RIGHT){
         mPosition.x = ofGetWidth() - mWidth;
-    */
+    
     }
     layoutGui();
 }
