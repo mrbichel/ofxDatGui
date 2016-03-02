@@ -245,6 +245,14 @@ ofxDatGuiToggle* ofxDatGui::addToggle(string label, bool enabled)
     return button;
 }
 
+ofxDatGuiToggle* ofxDatGui::addToggle(ofParameter<bool>&p)
+{
+    ofxDatGuiToggle* button = new ofxDatGuiToggle(p);
+    button->onButtonEvent(this, &ofxDatGui::onButtonEventCallback);
+    attachItem(button);
+    return button;
+}
+
 ofxDatGuiSlider* ofxDatGui::addSlider(ofParameter<int>& p)
 {
     ofxDatGuiSlider* slider = new ofxDatGuiSlider(p);
@@ -595,7 +603,7 @@ void ofxDatGui::onButtonEventCallback(ofxDatGuiButtonEvent e)
     if (buttonEventCallback != nullptr) {
         buttonEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -604,7 +612,7 @@ void ofxDatGui::onSliderEventCallback(ofxDatGuiSliderEvent e)
     if (sliderEventCallback != nullptr) {
         sliderEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -613,7 +621,7 @@ void ofxDatGui::onTextInputEventCallback(ofxDatGuiTextInputEvent e)
     if (textInputEventCallback != nullptr) {
         textInputEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+       // ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -622,7 +630,7 @@ void ofxDatGui::onDropdownEventCallback(ofxDatGuiDropdownEvent e)
     if (dropdownEventCallback != nullptr) {
         dropdownEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 // adjust the gui after a dropdown is closed //
     layoutGui();
@@ -633,7 +641,7 @@ void ofxDatGui::on2dPadEventCallback(ofxDatGui2dPadEvent e)
     if (pad2dEventCallback != nullptr) {
         pad2dEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -642,7 +650,7 @@ void ofxDatGui::onColorPickerEventCallback(ofxDatGuiColorPickerEvent e)
     if (colorPickerEventCallback != nullptr) {
         colorPickerEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -651,7 +659,7 @@ void ofxDatGui::onMatrixEventCallback(ofxDatGuiMatrixEvent e)
     if (matrixEventCallback != nullptr) {
         matrixEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
