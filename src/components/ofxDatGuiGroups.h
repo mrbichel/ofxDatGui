@@ -225,6 +225,15 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
+    
+        void dispatchFolderEvent(ofxDatGuiFolderEvent e)
+    {
+        if(folderEventCallback != nullptr) {
+            folderEventCallback(e);
+        } else {
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
 
     /*
         component add methods
@@ -361,6 +370,36 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
     protected:
     
         vector<shared_ptr<ofxDatGuiColorPicker>> pickers;
+    
+    void onMouseRelease(ofPoint m)
+    {
+        if (mFocused){
+            // open & close the group when its header is clicked //
+            ofxDatGuiGroup::onMouseRelease(m);
+                // dispatch event out to main application //
+                if (folderEventCallback != nullptr) {
+                    ofxDatGuiFolderEvent e(this, mIsExpanded);
+                    folderEventCallback(e);
+                }   else{
+                    ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                }
+        }
+    }
+
+    
+    private:
+    
+    void onFolderChanged(ofxDatGuiFolderEvent e)
+    {
+        if (folderEventCallback != nullptr) {
+            ofxDatGuiFolderEvent e1(this, mIsExpanded);
+            folderEventCallback(e1);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
+    
+
     
 };
 

@@ -361,6 +361,7 @@ ofxDatGuiFolder* ofxDatGui::addFolder(string label, ofColor color)
     folder->onMatrixEvent(this, &ofxDatGui::onMatrixEventCallback);
     folder->onTextInputEvent(this, &ofxDatGui::onTextInputEventCallback);
     folder->onColorPickerEvent(this, &ofxDatGui::onColorPickerEventCallback);
+    folder->onFolderEvent(this, &ofxDatGui::onFolderEventCallback);
     folder->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
     attachItem(folder);
     return folder;
@@ -649,6 +650,15 @@ void ofxDatGui::onMatrixEventCallback(ofxDatGuiMatrixEvent e)
 {
     if (matrixEventCallback != nullptr) {
         matrixEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
+}
+
+void ofxDatGui::onFolderEventCallback(ofxDatGuiFolderEvent e)
+{
+    if (folderEventCallback != nullptr) {
+        folderEventCallback(e);
     }   else{
         ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }

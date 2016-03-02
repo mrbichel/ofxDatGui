@@ -155,6 +155,17 @@ class ofxDatGuiInteractiveObject{
             scrollViewEventCallback = std::bind(listenerMethod, owner, _1);
         }
 
+    // folder events //
+    typedef std::function<void(ofxDatGuiFolderEvent)> onFolderEventCallback;
+    onFolderEventCallback folderEventCallback;
+    
+    template<typename T, typename args, class ListenerClass>
+    void onFolderEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
+    {
+        using namespace std::placeholders;
+        folderEventCallback = std::bind(listenerMethod, owner, _1);
+    }
+    
     // internal events //
         typedef std::function<void(ofxDatGuiInternalEvent)> onInternalEventCallback;
         onInternalEventCallback internalEventCallback;

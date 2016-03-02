@@ -144,5 +144,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void on2dPadEventCallback(ofxDatGui2dPadEvent e);
         void onColorPickerEventCallback(ofxDatGuiColorPickerEvent e);
         void onMatrixEventCallback(ofxDatGuiMatrixEvent e);
+        void onFolderEventCallback(ofxDatGuiFolderEvent e);
 
 };

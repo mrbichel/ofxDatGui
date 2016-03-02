@@ -30,6 +30,7 @@ class ofxDatGui2dPad;
 class ofxDatGuiColorPicker;
 class ofxDatGuiMatrix;
 class ofxDatGuiScrollView;
+class ofxDatGuiFolder;
 
 enum ofxDatGuiEventType
 {
@@ -42,7 +43,8 @@ enum ofxDatGuiEventType
     OPTION_SELECTED,
     DROPDOWN_TOGGLED,
     VISIBILITY_CHANGED,
-    MATRIX_BUTTON_TOGGLED
+    MATRIX_BUTTON_TOGGLED,
+    FOLDER_CLICKED
 };
 
 class ofxDatGuiInternalEvent{
@@ -161,6 +163,20 @@ class ofxDatGuiMatrixEvent{
     bool enabled;
     ofxDatGuiMatrix* target;
 };
+
+class ofxDatGuiFolderEvent{
+    
+public:
+    ofxDatGuiFolderEvent(ofxDatGuiFolder* t, bool e)
+    {
+        target = t;
+        expanded = e;
+    }
+    int child;
+    bool expanded;
+    ofxDatGuiFolder* target;
+};
+
 
 
 
