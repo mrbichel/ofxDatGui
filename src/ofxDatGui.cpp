@@ -245,6 +245,14 @@ ofxDatGuiToggle* ofxDatGui::addToggle(string label, bool enabled)
     return button;
 }
 
+ofxDatGuiToggle* ofxDatGui::addToggle(ofParameter<bool>&p)
+{
+    ofxDatGuiToggle* button = new ofxDatGuiToggle(p);
+    button->onButtonEvent(this, &ofxDatGui::onButtonEventCallback);
+    attachItem(button);
+    return button;
+}
+
 ofxDatGuiSlider* ofxDatGui::addSlider(ofParameter<int>& p)
 {
     ofxDatGuiSlider* slider = new ofxDatGuiSlider(p);
@@ -448,6 +456,7 @@ ofxDatGui2dPad* ofxDatGui::get2dPad(string pl, string fl)
     }   else{
         o = static_cast<ofxDatGui2dPad*>(getComponent(ofxDatGuiType::PAD2D, pl));
     }
+    
     if (o==nullptr){
         o = ofxDatGui2dPad::getInstance();
         ofxDatGuiLog::write(ofxDatGuiMsg::COMPONENT_NOT_FOUND, fl!="" ? fl+"-"+pl : pl);
@@ -595,7 +604,7 @@ void ofxDatGui::onButtonEventCallback(ofxDatGuiButtonEvent e)
     if (buttonEventCallback != nullptr) {
         buttonEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -604,7 +613,7 @@ void ofxDatGui::onSliderEventCallback(ofxDatGuiSliderEvent e)
     if (sliderEventCallback != nullptr) {
         sliderEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -613,7 +622,7 @@ void ofxDatGui::onTextInputEventCallback(ofxDatGuiTextInputEvent e)
     if (textInputEventCallback != nullptr) {
         textInputEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+       // ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -622,7 +631,7 @@ void ofxDatGui::onDropdownEventCallback(ofxDatGuiDropdownEvent e)
     if (dropdownEventCallback != nullptr) {
         dropdownEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 // adjust the gui after a dropdown is closed //
     layoutGui();
@@ -633,7 +642,7 @@ void ofxDatGui::on2dPadEventCallback(ofxDatGui2dPadEvent e)
     if (pad2dEventCallback != nullptr) {
         pad2dEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -642,7 +651,7 @@ void ofxDatGui::onColorPickerEventCallback(ofxDatGuiColorPickerEvent e)
     if (colorPickerEventCallback != nullptr) {
         colorPickerEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -651,7 +660,7 @@ void ofxDatGui::onMatrixEventCallback(ofxDatGuiMatrixEvent e)
     if (matrixEventCallback != nullptr) {
         matrixEventCallback(e);
     }   else{
-        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        //ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
 }
 
@@ -702,13 +711,10 @@ void ofxDatGui::anchorGui()
     mPosition.y = 0;
     if (mAnchor == ofxDatGuiAnchor::TOP_LEFT){
         mPosition.x = 0;
-    /*
-        ofGetWidth returns an incorrect value after the window is resized in version >=0.9.1
-        disabling ofxDatGuiAnchor::TOP_RIGHT until this is resolved
-        https://github.com/openframeworks/openFrameworks/issues/4746
+
     }   else if (mAnchor == ofxDatGuiAnchor::TOP_RIGHT){
         mPosition.x = ofGetWidth() - mWidth;
-    */
+    
     }
     layoutGui();
 }

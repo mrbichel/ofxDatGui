@@ -166,6 +166,21 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mBoundf = &val;
             mBoundi = nullptr;
         }
+    
+        void bind(ofParameter<int> & p) {
+            mParamI = &p;
+            mPrecision = 0;
+            calculateScale();
+            mParamI->addListener(this, &ofxDatGuiSlider::onParamI);
+        }
+        void bind(ofParameter<float> & p) {
+            mParamF = &p;
+            mPrecision = 2;
+            calculateScale();
+            mParamF->addListener(this, &ofxDatGuiSlider::onParamF);
+        }
+    
+    
 
         void draw()
         {
