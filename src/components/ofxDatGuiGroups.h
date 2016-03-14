@@ -512,6 +512,10 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             for(int i=0; i<children.size(); i++) if (e.target == children[i]) mOption = i;
             setLabel(children[mOption]->getLabel());
             collapse();
+            if (internalEventCallback != nullptr){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+                internalEventCallback(e);
+            }
             if (dropdownEventCallback != nullptr) {
                 ofxDatGuiDropdownEvent e1(this, mIndex, mOption);
                 dropdownEventCallback(e1);
